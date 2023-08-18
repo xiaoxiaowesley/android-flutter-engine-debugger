@@ -4,7 +4,7 @@
   "description": "For debug Flutter engine in Android devices.",
   "repository": "https://github.com/xiaoxiaowesley/android-flutter-engine-debugger",
   "version": "0.0.1",
-  "icon": "extension/icon.png",
+  "icon": "icon.jpg",
   "publisher": "seanxiaoxiang",
   "engines": {
     "vscode": "^1.81.0"

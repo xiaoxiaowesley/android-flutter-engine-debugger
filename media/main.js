@@ -16,27 +16,33 @@
     /** @type {Array<{ value: string }>} */
     let colors = oldState.colors;
 
-    document.getElementById('local-engine-input')?.addEventListener('change', function () {
+    document.getElementById('local-engine-input')?.addEventListener('change', function (event) {
         const p = document.getElementById('local-engine-p');
         if (p) {
-            p.innerHTML = "<b>local engine:</b>" + this.value;
-            vscode.postMessage({ type: 'updateLocalEngine', value: this.value });
+            // @ts-ignore
+            const value = event.target?.value;
+            p.innerHTML = `<b>local engine:</b> ${value}`;
+            vscode.postMessage({ type: 'updateLocalEngine', value: value });
         }
     });
 
-    document.getElementById('local-engine-src-path-input')?.addEventListener('change', function () {
+    document.getElementById('local-engine-src-path-input')?.addEventListener('change', function (event) {
         const p = document.getElementById('local-engine-src-path-p');
         if (p) {
-            p.innerHTML = "<b>local engine src path:</b>" + this.value;
-            vscode.postMessage({ type: 'updateLocalEngineSrcPath', value: this.value });
+            // @ts-ignore
+            const value = event.target?.value;
+            p.innerHTML = `<b>local engine src path:</b> ${value}`;
+            vscode.postMessage({ type: 'updateLocalEngineSrcPath', value: value });
         }
     });
 
-    document.getElementById('package-name-input')?.addEventListener('change', function () {
+    document.getElementById('package-name-input')?.addEventListener('change', function (event) {
         const p = document.getElementById('package-name-p');
         if (p) {
-            p.innerHTML = "<b>package name:</b>" + this.value;
-            vscode.postMessage({ type: 'updatePackageName', value: this.value });
+            // @ts-ignore
+            const value = event.target?.value;
+            p.innerHTML = `<b>package name:</b>${value}`;
+            vscode.postMessage({ type: 'updatePackageName', value: value });
         }
     });
 

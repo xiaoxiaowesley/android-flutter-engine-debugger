@@ -2,7 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { execSync, exec } from 'child_process';
-
+import {os} from 'os';
 const RET_CODE_ANDROID_HOME_NOT_FOUND = -1;
 const REC_CODE_PACKAGE_NOT_FOUND = -2;
 const RET_CODE_INPROGRESS = 0;
@@ -25,6 +25,9 @@ function getPackagePid(adbPath: String, packageName: String) {
 // get the ANDROID_HOME environment
 function getAndroidHome() {
 	const androidHome = process.env.ANDROID_HOME;
+	console.log(process.env)
+	const { ANDROID_HOME } = process.env;
+	console.log(ANDROID_HOME)
 	if (!androidHome) {
 		return null
 	}
@@ -109,6 +112,9 @@ function startGenrateLaunchJson(local_engine_src_path: String, local_engine: Str
 		]
 	}`;
 	// Step[9/11]  Write to ${vscode.workspace.rootPath}/.vscode/launch.json
+	if (vscode.workspace.rootPath && vscode.workspace.rootPath.length > 0) {
+		execSync(`mkdir -p ${vscode.workspace.rootPath}/.vscode`);
+	}
 	const launchJsonPath = `${vscode.workspace.rootPath}/.vscode/launch.json`;
 	execSync(`echo '${vscodeConfig}' > ${launchJsonPath}`);
 	messageSender('Step[9/11]', `Write to ${vscode.workspace.rootPath}/.vscode/launch.json`)

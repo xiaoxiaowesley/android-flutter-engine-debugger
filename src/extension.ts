@@ -207,11 +207,8 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 					if (ret) {
 						if (ret.ret == RET_CODE_SUCCESS) {
 							this.sendStepMessage(RET_CODE_SUCCESS, 'Complete!', ret.msg);
-						} else if (ret.ret == RET_CODE_ANDROID_HOME_NOT_FOUND) {
-							this.sendStepMessage(RET_CODE_ANDROID_HOME_NOT_FOUND, 'Fail!', ret.msg);
-						} else if (ret.ret == REC_CODE_PACKAGE_NOT_FOUND) {
-							this.sendStepMessage(REC_CODE_PACKAGE_NOT_FOUND, 'Fail!', ret.msg);
 						} else {
+							this.sendStepMessage(REC_CODE_PACKAGE_NOT_FOUND, 'Fail!', ret.msg);
 						}
 					}
 					break;
@@ -254,14 +251,14 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 			<body>
 				<div>
 					<h3>local engine src path</h3>
-					<input type='text' id='local-engine-src-path-input' />
-					<p id="local-engine-src-path-p" class="log-p"></p>
+					<input type='text' id='local-engine-src-path-input' placeholder='e.g. /User/xxx/src' />
+					<p id="local-engine-src-path-p"></p>
 					<h3>local engine</h3>
-					<input type='text' id='local-engine-input' />
-					<p id="local-engine-p" class="log-p"></p>
+					<input type='text' id='local-engine-input' placeholder='e.g. android_debug_unopt_arm64' />
+					<p id="local-engine-p"></p>
 					<h3>package name</h3>
-					<p id="package-name-p" class="log-p"></p>
-					<input type='text' id='package-name-input' />
+					<p id="package-name-p"></p>
+					<input type='text' id='package-name-input'placeholder='e.g. com.example.myapp' />
 					<br>					
 					<button id="generate-button">Start</button>
 					<div id="status" class="status-info"></div>					

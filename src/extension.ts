@@ -7,7 +7,9 @@ const RET_CODE_ANDROID_HOME_NOT_FOUND = -1;
 const REC_CODE_PACKAGE_NOT_FOUND = -2;
 const RET_CODE_INPROGRESS = 0;
 const RET_CODE_SUCCESS = 1;
-const REC_CODE_LACK_OF_PARAMETER = -3;
+const REC_CODE_LACK_OF_SRC_PATH_PARAMETER = -3;
+const REC_CODE_LACK_OF_ENGINE_PARAMETER = -4;
+const REC_CODE_LACK_OF_PACKAGE_PARAMETER = -5;
 
 
 // get the pid of the package
@@ -187,15 +189,15 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 				}
 				case 'startGenerateLaunchJson': {
 					if (!this._localEngineSrcPath) {
-						this.sendStepMessage(REC_CODE_LACK_OF_PARAMETER, 'Fail', 'local_engine_src_path is empty.Plasese enter the src/flutter path');
+						this.sendStepMessage(REC_CODE_LACK_OF_SRC_PATH_PARAMETER, 'Fail', 'local_engine_src_path is empty.Plasese enter the src/flutter path');
 						return;
 					}
 					if (!this._localEngine) {
-						this.sendStepMessage(REC_CODE_LACK_OF_PARAMETER, 'Fail', 'local_engine is empty.Plasese enter the local engine of the engine');
+						this.sendStepMessage(REC_CODE_LACK_OF_ENGINE_PARAMETER, 'Fail', 'local_engine is empty.Plasese enter the local engine of the engine');
 						return;
 					}
 					if (!this._packageName) {
-						this.sendStepMessage(REC_CODE_LACK_OF_PARAMETER, 'Fail', 'package_name is empty.Plasese enter the package name of the application');
+						this.sendStepMessage(REC_CODE_LACK_OF_PACKAGE_PARAMETER, 'Fail', 'package_name is empty.Plasese enter the package name of the application');
 						return;
 					}
 
@@ -206,9 +208,9 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 						if (ret.ret == RET_CODE_SUCCESS) {
 							this.sendStepMessage(RET_CODE_SUCCESS, 'Complete!', ret.msg);
 						} else if (ret.ret == RET_CODE_ANDROID_HOME_NOT_FOUND) {
-							this.sendStepMessage(RET_CODE_ANDROID_HOME_NOT_FOUND, 'Fail', ret.msg);
+							this.sendStepMessage(RET_CODE_ANDROID_HOME_NOT_FOUND, 'Fail!', ret.msg);
 						} else if (ret.ret == REC_CODE_PACKAGE_NOT_FOUND) {
-							this.sendStepMessage(REC_CODE_PACKAGE_NOT_FOUND, 'Fail', ret.msg);
+							this.sendStepMessage(REC_CODE_PACKAGE_NOT_FOUND, 'Fail!', ret.msg);
 						} else {
 						}
 					}
@@ -254,18 +256,18 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 				<div>
 					<h3>local engine src path</h3>
 					<input type='text' id='local-engine-src-path-input' />
+					<p id="local-engine-src-path-p" class="log-p"></p>
 					<h3>local engine</h3>
 					<input type='text' id='local-engine-input' />
+					<p id="local-engine-p" class="log-p"></p>
 					<h3>package name</h3>
+					<p id="package-name-p" class="log-p"></p>
 					<input type='text' id='package-name-input' />
 					<br>
-					<p id="local-engine-src-path-p"></p>
-					<p id="local-engine-p"></p>
-					<p id="package-name-p"></p>
 					
 					<button id="generate-button">Start</button>
 
-					<div id="status" class="status-info">状态信息</div>					
+					<div id="status" class="status-info"></div>					
 
 
 				</div>

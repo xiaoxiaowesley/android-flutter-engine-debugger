@@ -249,7 +249,6 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 				<link href="${styleResetUri}" rel="stylesheet">
 				<link href="${styleVSCodeUri}" rel="stylesheet">
 				<link href="${styleMainUri}" rel="stylesheet">
-
 				<title>Flutter engine Android Debugger</title>
 			</head>
 			<body>
@@ -263,13 +262,9 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 					<h3>package name</h3>
 					<p id="package-name-p" class="log-p"></p>
 					<input type='text' id='package-name-input' />
-					<br>
-					
+					<br>					
 					<button id="generate-button">Start</button>
-
 					<div id="status" class="status-info"></div>					
-
-
 				</div>
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>

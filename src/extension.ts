@@ -2,7 +2,6 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { execSync, exec } from 'child_process';
-import {os} from 'os';
 const RET_CODE_ANDROID_HOME_NOT_FOUND = -1;
 const REC_CODE_PACKAGE_NOT_FOUND = -2;
 const RET_CODE_INPROGRESS = 0;
@@ -25,9 +24,6 @@ function getPackagePid(adbPath: String, packageName: String) {
 // get the ANDROID_HOME environment
 function getAndroidHome() {
 	const androidHome = process.env.ANDROID_HOME;
-	console.log(process.env)
-	const { ANDROID_HOME } = process.env;
-	console.log(ANDROID_HOME)
 	if (!androidHome) {
 		return null
 	}

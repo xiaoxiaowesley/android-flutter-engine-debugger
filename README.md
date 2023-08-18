@@ -30,6 +30,8 @@ A VSCode plugin for debugging Flutter Engine Android Application
 
     Important! Please ensure that the Android application running in the foreground as step 2 .
 
+    and open `src/flutter direcotry `!!!!! not `src`
+
     open extension and fill the parameter.
 
     · local-engine-src-path: The src directory of the Flutter source code.(Same as the --local-engine-src-path parameter in step 2.)
@@ -38,6 +40,12 @@ A VSCode plugin for debugging Flutter Engine Android Application
 
     · lpackage name: The package name of the Android application.
 
+    After clicking start, if everything is normal, the last prompt `You can use press F5 to debug!!` means success.
+
+3. Everything is ready, press F5 to start debugging
+
+
+
 ## Requirements
 
 · Obtain Flutter Engine source code.
@@ -45,5 +53,13 @@ A VSCode plugin for debugging Flutter Engine Android Application
 · Compile Flutter source code.
 
 · Run Android application using a local engine.
+
+
+## Issues
+
+1. ANDROID_HOME is empty. Please set the ANDROID_HOME environment variable
+    
+   Please successfully set the ANDROID_HOME environment variable in the configuration environment such as .zshrc or .bash_profile. If you confirm that the settings are successful but still report an error, this may be caused by the nodejs environment, you can try to restart vscode
+
 
 **Enjoy!**

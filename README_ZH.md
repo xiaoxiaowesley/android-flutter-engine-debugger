@@ -34,10 +34,21 @@ Android调试Flutter Engine的 VSCode插件
 
     · package name : Android应用的packagename
 
+    点击start后，如果一切正常，最后提示` You can use press F5 to debug!! ` 就表示成功。
+
+3. 万事俱备，按F5就可以开始调试了
+
 ## Requirements
 
 1. 获取flutter engine源码
 2. 编译flutter源码
 3. 使用local engine方式运行Android应用
+
+## Issues
+
+1. ANDROID_HOME is empty. Please set the ANDROID_HOME environment variable
+    
+    请在.zshrc或者.bash_profile等配置环境成功设置了ANDROID_HOME环境变量。如果你确认了设置成功却依然报错，这可能是因nodejs环境导致的，可以尝试重启vscode
+
 
 **Enjoy!**

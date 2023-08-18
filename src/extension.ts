@@ -151,7 +151,6 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 	private _localEngineSrcPath?: String;
 	private _localEngine?: String;
 	private _packageName?: String;
-	private _androidHome?: String;
 
 	constructor(
 		private readonly _extensionUri: vscode.Uri,
@@ -208,7 +207,7 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 						if (ret.ret == RET_CODE_SUCCESS) {
 							this.sendStepMessage(RET_CODE_SUCCESS, 'Complete!', ret.msg);
 						} else {
-							this.sendStepMessage(REC_CODE_PACKAGE_NOT_FOUND, 'Fail!', ret.msg);
+							this.sendStepMessage(ret.ret, 'Fail!', ret.msg);
 						}
 					}
 					break;

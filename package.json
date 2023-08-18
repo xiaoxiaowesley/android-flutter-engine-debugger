@@ -12,12 +12,24 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "android-flutter-engine-debugger.helloWorld",
-        "title": "Hello World"
-      }
-    ]
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "android-flutter-debugger-setting",
+					"title": "Flutter Engine Android Debugger",
+					"icon": "media/dep.svg"
+				}
+			]
+		},
+		"views": {
+			"android-flutter-debugger-setting": [
+				{
+					"type": "webview",
+					"id": "flutter-engine-android-debugger",
+					"name": "Flutter Android Debugger"
+				}
+			]
+		}
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

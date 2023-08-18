@@ -1,4 +1,6 @@
-# android-flutter-engine-debugger README
+# android-flutter-engine-debugger
+
+[English README](README.md)
 
 Android调试Flutter Engine的 VSCode插件
 

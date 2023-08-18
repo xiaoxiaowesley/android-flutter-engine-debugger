@@ -1,5 +1,8 @@
-# android-flutter-engine-debugger README
+# android-flutter-engine-debugger  
 
+[切换到中文README](README_ZH.md)
+
+ 
 A VSCode plugin for debugging Flutter Engine Android Application
 
 

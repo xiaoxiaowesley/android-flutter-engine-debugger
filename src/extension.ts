@@ -189,15 +189,15 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 				}
 				case 'startGenerateLaunchJson': {
 					if (!this._localEngineSrcPath) {
-						this.sendStepMessage(REC_CODE_LACK_OF_SRC_PATH_PARAMETER, 'Fail', 'local_engine_src_path is empty.Plasese enter the src/flutter path');
+						this.sendStepMessage(REC_CODE_LACK_OF_SRC_PATH_PARAMETER, 'Fail', 'Plasese enter the src path');
 						return;
 					}
 					if (!this._localEngine) {
-						this.sendStepMessage(REC_CODE_LACK_OF_ENGINE_PARAMETER, 'Fail', 'local_engine is empty.Plasese enter the local engine of the engine');
+						this.sendStepMessage(REC_CODE_LACK_OF_ENGINE_PARAMETER, 'Fail', 'Plasese enter the local engine of the engine');
 						return;
 					}
 					if (!this._packageName) {
-						this.sendStepMessage(REC_CODE_LACK_OF_PACKAGE_PARAMETER, 'Fail', 'package_name is empty.Plasese enter the package name of the application');
+						this.sendStepMessage(REC_CODE_LACK_OF_PACKAGE_PARAMETER, 'Fail', 'Plasese enter the package name of the application');
 						return;
 					}
 

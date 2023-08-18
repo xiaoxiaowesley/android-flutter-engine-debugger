@@ -13,11 +13,6 @@
     const REC_CODE_LACK_OF_ENGINE_PARAMETER = -4;
     const REC_CODE_LACK_OF_PACKAGE_PARAMETER = -5;
 
-    const oldState = vscode.getState() || { colors: [] };
-
-    /** @type {Array<{ value: string }>} */
-    let colors = oldState.colors;
-
     document.getElementById('local-engine-input')?.addEventListener('change', function (event) {
         // @ts-ignore
         const value = event.target?.value;
@@ -64,11 +59,16 @@
                             status.style.color = "red";
                         } else if (code === REC_CODE_LACK_OF_SRC_PATH_PARAMETER) {
                             status.style.color = "orange";
-                            const p = document.getElementById('local-engine-src-path-p');
-                            if (p) {
-                                p.innerHTML = `<b>${log}</b> `;
-                                p.style.color = "orange";
+                            const src_p = document.getElementById('local-engine-src-path-p');
+                            if (src_p) {
+                                src_p.innerHTML = `<b>${log}</b> `;
+                                src_p.style.color = "orange";
                             }
+                            // @ts-ignore
+                            document.getElementById('local-engine-p').innerHTML = "";
+                            // @ts-ignore
+                            document.getElementById('package-name-p').innerHTML = "";
+
                         } else if (code == REC_CODE_LACK_OF_ENGINE_PARAMETER) {
                             status.style.color = "orange";
                             const p = document.getElementById('local-engine-p');
@@ -76,6 +76,10 @@
                                 p.innerHTML = `<b>${log}</b> `;
                                 p.style.color = "orange";
                             }
+                            // @ts-ignore
+                            document.getElementById('local-engine-src-path-p').innerHTML = "";
+                            // @ts-ignore
+                            document.getElementById('package-name-p').innerHTML = "";
                         } else if (code == REC_CODE_LACK_OF_PACKAGE_PARAMETER) {
                             status.style.color = "orange";
                             const p = document.getElementById('package-name-p');
@@ -83,9 +87,12 @@
                                 p.innerHTML = `<b>${log}</b> `;
                                 p.style.color = "orange";
                             }
+                            // @ts-ignore
+                            document.getElementById('local-engine-src-path-p').innerHTML = "";
+                            // @ts-ignore
+                            document.getElementById('local-engine-p').innerHTML = "";
                         }
                     }
-
                     break;
                 }
 

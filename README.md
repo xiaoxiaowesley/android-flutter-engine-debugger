@@ -42,8 +42,14 @@ A VSCode plugin for debugging Flutter Engine Android Application
 
     After clicking start, if everything is normal, the last prompt `You can use press F5 to debug!!` means success.
 
+    ![Alt Text](./start.gif)
+
+
 3. Everything is ready, press F5 to start debugging
 
+    add a breakpoint and you can enjou it now!
+
+    ![Alt Text](./debug.gif)
 
 
 ## Requirements

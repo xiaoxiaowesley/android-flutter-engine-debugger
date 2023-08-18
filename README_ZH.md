@@ -36,7 +36,14 @@ Android调试Flutter Engine的 VSCode插件
 
     点击start后，如果一切正常，最后提示` You can use press F5 to debug!! ` 就表示成功。
 
+    ![Alt Text](./start.gif)
+
+
 3. 万事俱备，按F5就可以开始调试了
+
+    添加断点，就可以调试了
+    
+    ![Alt Text](./debug.gif)
 
 ## Requirements
 

@@ -5,6 +5,7 @@
   "repository": "https://github.com/xiaoxiaowesley/android-flutter-engine-debugger",
   "version": "0.0.1",
   "icon": "icon.png",
+  "publisher": "xiaoxiaowesley",
   "engines": {
     "vscode": "^1.81.0"
   },

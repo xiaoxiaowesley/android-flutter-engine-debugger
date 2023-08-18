@@ -199,9 +199,8 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 						return;
 					}
 
-					const ret = startGenrateLaunchJson(this._localEngineSrcPath!, this._localEngine!, this._packageName!, function (step: string, log: string) {
-						this.sendStepMessage(RET_CODE_INPROGRESS, step, log);
-					}.bind(this));
+					const ret = startGenrateLaunchJson(this._localEngineSrcPath!, this._localEngine!, this._packageName!, (step: string, log: string) =>
+						this.sendStepMessage(RET_CODE_INPROGRESS, step, log));
 
 					if (ret) {
 						if (ret.ret == RET_CODE_SUCCESS) {

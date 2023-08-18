@@ -82,7 +82,7 @@ function startGenrateLaunchJson(local_engine_src_path: String, local_engine: Str
 		var server_cmd = `${adbPath} shell run-as ${package_name} sh -c \\\'/data/data/${package_name}/lldb-server platform --server --listen unix-abstract:///data/data/${package_name}/debug.socket\\\'`
 		exec(server_cmd)
 		messageSender('Step[8/11]', 'Start the lldb-server: ' + server_cmd)
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error.message);
 	}
 

@@ -1,71 +1,46 @@
 # android-flutter-engine-debugger README
 
-This is the README for your extension "android-flutter-engine-debugger". After writing up a brief description, we recommend including the following sections.
+A VSCode plugin for debugging Flutter Engine Android Application
+
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+1. Get flutter source code && compile Flutter Engine s
 
-For example if there is an image subfolder under your extension project workspace:
+    Get the engine code 
+    [Setting-up-the-Engine-development-environment](https://github.com/flutter/flutter/wiki/Setting-up-the-Engine-development-environment)
 
-\!\[feature X\]\(images/feature-x.png\)
+    Compile Engine:[compiling-for-android-from-macos-or-linux](https://github.com/flutter/flutter/wiki/Compiling-the-engine#compiling-for-android-from-macos-or-linux)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+
+    For example, use the command ： `./flutter/tools/gn --android  --debug --unoptimized` 
+    Finally, you will get the aritfact in the directory `out/android_debug_unopt_arm64 `
+
+
+2. Launch Android Flutter Application using a local parameter
+
+    [Setting-up-the-Engine-development-environment](https://github.com/flutter/flutter/wiki/Debugging-the-engine)
+
+    ```fluter run --local-engine=android_debug_unopt_arm64 --local-engine-src-path={YourflutterEngineSrcPath}```
+
+3. Open the src/flutter directory in VSCode.
+
+    Important! Please ensure that the Android application running in the foreground as step 2 .
+
+    open extension and fill the parameter.
+
+    · local-engine-src-path: The src directory of the Flutter source code.(Same as the --local-engine-src-path parameter in step 2.)
+
+    · local engine: The output directory of the engine, located in the out directory. (It varies depending on the compilation parameters, such as `android_debug_unopt_arm64`.)
+
+    · lpackage name: The package name of the Android application.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+· Obtain Flutter Engine source code.
 
-## Extension Settings
+· Compile Flutter source code.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+· Run Android application using a local engine.
 
 **Enjoy!**

@@ -54,6 +54,9 @@ A VSCode plugin for debugging Flutter Engine Android Application
 
 ## Requirements
 
+
+· Install [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) plugin 
+
 · Obtain Flutter Engine source code.
 
 · Compile Flutter source code.
@@ -66,6 +69,11 @@ A VSCode plugin for debugging Flutter Engine Android Application
 1. ANDROID_HOME is empty. Please set the ANDROID_HOME environment variable
     
    Please successfully set the ANDROID_HOME environment variable in the configuration environment such as .zshrc or .bash_profile. If you confirm that the settings are successful but still report an error, this may be caused by the nodejs environment, you can try to restart vscode
+
+
+2. Configured debug type 'lldb' is not supported.
+
+    Please install [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) extension. 
 
 
 **Enjoy!**

@@ -47,6 +47,8 @@ Android调试Flutter Engine的 VSCode插件
 
 ## Requirements
 
+
+1. 安装 [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) 插件 
 1. 获取flutter engine源码
 2. 编译flutter源码
 3. 使用local engine方式运行Android应用
@@ -57,5 +59,8 @@ Android调试Flutter Engine的 VSCode插件
     
     请在.zshrc或者.bash_profile等配置环境成功设置了ANDROID_HOME环境变量。如果你确认了设置成功却依然报错，这可能是因nodejs环境导致的，可以尝试重启vscode
 
+2. Configured debug type 'lldb' is not supported.
+
+    请安装 [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) 插件 
 
 **Enjoy!**

@@ -54,18 +54,18 @@ function startGenrateLaunchJson(source_code_path: String, so_path: String, packa
 	// Step[4/9]  Push lldb-server to the device
 	const LLDB_SERVER_DEVICE_TMP_PATH = '/data/local/tmp/lldb-server'
 	const pushCmd = `${adbPath} push ${lldbServerLocalPath} ${LLDB_SERVER_DEVICE_TMP_PATH}`;
-	execSync(pushCmd);
+	exec(pushCmd);
 	messageSender('Step[3/9]', 'Push lldb-server to the device: ' + pushCmd)
 
 	// Step[5/9]  Copy lldb-server to the application data directory
 	const lldbServerDevicePath = `/data/data/${package_name}/lldb-server`;
 	const cpCmd = `${adbPath} shell run-as ${package_name} cp -F ${LLDB_SERVER_DEVICE_TMP_PATH} ${lldbServerDevicePath}`
-	execSync(cpCmd);
+	exec(cpCmd);
 	messageSender('Step[4/9]', 'Copy lldb-server to the application data directory: ' + cpCmd)
 
 	// Step[6/9]  Set the permission of lldb-server
 	const chmodCmd = `${adbPath} shell run-as ${package_name} chmod a+x ${lldbServerDevicePath}`
-	execSync(chmodCmd);
+	exec(chmodCmd);
 	messageSender('Step[5/9]', 'Set the permission of lldb-server: ' + chmodCmd)
 
 	// Step[7/9]  Kill the lldb-server

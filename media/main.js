@@ -16,14 +16,14 @@
     document.getElementById('local-engine-input')?.addEventListener('change', function (event) {
         // @ts-ignore
         const value = event.target?.value;
-        vscode.postMessage({ type: 'updateLocalEngine', value: value });
+        vscode.postMessage({ type: 'updateSoPath', value: value });
 
     });
 
     document.getElementById('local-engine-src-path-input')?.addEventListener('change', function (event) {
         // @ts-ignore
         const value = event.target?.value;
-        vscode.postMessage({ type: 'updateLocalEngineSrcPath', value: value });
+        vscode.postMessage({ type: 'updateSourceCodePath', value: value });
 
     });
 

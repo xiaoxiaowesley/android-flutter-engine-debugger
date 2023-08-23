@@ -1,5 +1,6 @@
 # Change Log
 
+0.0.3 revert Fix execSync may be stuck on some machines
 0.0.2 Fix execSync may be stuck on some machines
 
 ## [Unreleased]

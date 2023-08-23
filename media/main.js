@@ -12,6 +12,8 @@
     const REC_CODE_LACK_OF_SRC_PATH_PARAMETER = -3;
     const REC_CODE_LACK_OF_ENGINE_PARAMETER = -4;
     const REC_CODE_LACK_OF_PACKAGE_PARAMETER = -5;
+    const RET_CODE_KILL_LLDB_SERVER_WARNIG = -6;
+    const RET_CODE_START_LLDB_SERVER_ERROR = -7;
 
     document.getElementById('local-engine-input')?.addEventListener('change', function (event) {
         // @ts-ignore
@@ -91,6 +93,11 @@
                             document.getElementById('local-engine-src-path-p').innerHTML = "";
                             // @ts-ignore
                             document.getElementById('local-engine-p').innerHTML = "";
+                        } else if (code == RET_CODE_KILL_LLDB_SERVER_WARNIG) {
+                            status.style.color = "orange";
+                        } else if (code == RET_CODE_START_LLDB_SERVER_ERROR) {
+                            status.style.color = "red";
+                            status.innerHTML = `You may try again!!! ${step} ${log} `;
                         }
                     }
                     break;

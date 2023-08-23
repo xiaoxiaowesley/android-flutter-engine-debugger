@@ -9,7 +9,8 @@ const RET_CODE_SUCCESS = 1;
 const REC_CODE_LACK_OF_SRC_PATH_PARAMETER = -3;
 const REC_CODE_LACK_OF_ENGINE_PARAMETER = -4;
 const REC_CODE_LACK_OF_PACKAGE_PARAMETER = -5;
-
+const RET_CODE_KILL_LLDB_SERVER_WARNIG = -6;
+const RET_CODE_START_LLDB_SERVER_ERROR = -7;
 
 // get the pid of the package
 function getPackagePid(adbPath: String, packageName: String) {
@@ -38,7 +39,7 @@ function startGenrateLaunchJson(source_code_path: String, so_path: String, packa
 		const msg = 'ANDROID_HOME is empty. Please set the ANDROID_HOME environment variable'
 		return { ret: RET_CODE_ANDROID_HOME_NOT_FOUND, msg: msg };
 	}
-	messageSender('Step[1/9]', 'Get the ANDROID_HOME environment: ' + androidHome)
+	messageSender(RET_CODE_INPROGRESS, 'Step[1/9]', 'Get the ANDROID_HOME environment: ' + androidHome)
 
 	// Step[2/9]  Get the adb path
 	const adbPath = `${androidHome}/platform-tools/adb`;
@@ -49,30 +50,42 @@ function startGenrateLaunchJson(source_code_path: String, so_path: String, packa
 		const msg = 'The application is not running. Please run the application (' + package_name + ') first'
 		return { ret: REC_CODE_PACKAGE_NOT_FOUND, msg: msg };
 	}
-	messageSender('Step[2/9]', 'Get the pid of the package (package_name): ' + applicationPid)
+	messageSender(RET_CODE_INPROGRESS, 'Step[2/9]', 'Get the pid of the package (package_name): ' + applicationPid)
 
 	// Step[4/9]  Push lldb-server to the device
 	const LLDB_SERVER_DEVICE_TMP_PATH = '/data/local/tmp/lldb-server'
 	const pushCmd = `${adbPath} push ${lldbServerLocalPath} ${LLDB_SERVER_DEVICE_TMP_PATH}`;
 	execSync(pushCmd);
-	messageSender('Step[3/9]', 'Push lldb-server to the device: ' + pushCmd)
+	messageSender(RET_CODE_INPROGRESS, 'Step[3/9]', 'Push lldb-server to the device: ' + pushCmd)
 
 	// Step[5/9]  Copy lldb-server to the application data directory
 	const lldbServerDevicePath = `/data/data/${package_name}/lldb-server`;
 	const cpCmd = `${adbPath} shell run-as ${package_name} cp -F ${LLDB_SERVER_DEVICE_TMP_PATH} ${lldbServerDevicePath}`
 	execSync(cpCmd);
-	messageSender('Step[4/9]', 'Copy lldb-server to the application data directory: ' + cpCmd)
+	messageSender(RET_CODE_INPROGRESS, 'Step[4/9]', 'Copy lldb-server to the application data directory: ' + cpCmd)
 
 	// Step[6/9]  Set the permission of lldb-server
 	const chmodCmd = `${adbPath} shell run-as ${package_name} chmod a+x ${lldbServerDevicePath}`
 	execSync(chmodCmd);
-	messageSender('Step[5/9]', 'Set the permission of lldb-server: ' + chmodCmd)
+	messageSender(RET_CODE_INPROGRESS, 'Step[5/9]', 'Set the permission of lldb-server: ' + chmodCmd)
 
 	// Step[7/9]  Kill the lldb-server
 	try {
 		const killCmd = `${adbPath} shell run-as ${package_name} killall lldb-server`
-		exec(killCmd);
-		messageSender('Step[7/9]', 'Kill the lldb-server: ' + killCmd)
+		messageSender(RET_CODE_INPROGRESS, 'Step[7/9]', 'Kill the lldb-server: ' + killCmd)
+		exec(killCmd, (error, stdout, stderr) => {
+			if (error) {
+				console.log(error.message);
+				messageSender(RET_CODE_KILL_LLDB_SERVER_WARNIG, 'Step[7/9]', `error: ${error.message}`)
+				return;
+			}
+			if (stderr) {
+				console.log(stderr);
+				messageSender(RET_CODE_KILL_LLDB_SERVER_WARNIG, 'Step[7/9]', `stderr:${stderr}`)
+				return;
+			}
+			console.log(stdout);
+		});
 	} catch (error) {
 		console.log(error);
 	}
@@ -81,8 +94,21 @@ function startGenrateLaunchJson(source_code_path: String, so_path: String, packa
 	// The use of try to wrap it here is not to catch exceptions, but to prevent exceptions from causing subsequent codes to fail to execute
 	try {
 		var server_cmd = `${adbPath} shell run-as ${package_name} sh -c \\\'/data/data/${package_name}/lldb-server platform --server --listen unix-abstract:///data/data/${package_name}/debug.socket\\\'`
-		exec(server_cmd)
-		messageSender('Step[8/9]', 'Start the lldb-server: ' + server_cmd)
+		messageSender(RET_CODE_INPROGRESS, 'Step[8/9]', 'Start the lldb-server: ' + server_cmd)
+		exec(server_cmd, (error, stdout, stderr) => {
+			if (error) {
+				console.log(error.message);
+				messageSender(RET_CODE_START_LLDB_SERVER_ERROR, 'Step[8/9]', `error: ${error.message}`)
+				return;
+			}
+			if (stderr) {
+				console.log(stderr);
+				messageSender(RET_CODE_START_LLDB_SERVER_ERROR, 'Step[8/9]', `stderr:${stderr}`)
+				return;
+			}
+			console.log(stdout);
+			console.log(stdout);
+		});
 	} catch (error: any) {
 		console.log(error.message);
 	}
@@ -113,20 +139,8 @@ function startGenrateLaunchJson(source_code_path: String, so_path: String, packa
 	}
 	const launchJsonPath = `${vscode.workspace.rootPath}/.vscode/launch.json`;
 	execSync(`echo '${vscodeConfig}' > ${launchJsonPath}`);
-	messageSender('Step[9/9]', `Write to ${vscode.workspace.rootPath}/.vscode/launch.json`)
+	messageSender(RET_CODE_INPROGRESS, 'Step[9/9]', `Write to ${vscode.workspace.rootPath}/.vscode/launch.json`)
 
-	// Step[10/9]  Copy compile_commands.json to ${vscode.workspace.rootPath}/compile_commands.json
-	// const compileCommandsPath = `${source_code_path}/out/${so_path}/compile_commands.json`;
-	// const compileCommandsPathInWorkspace = `${vscode.workspace.rootPath}/compile_commands.json`;
-	// if (vscode.workspace.rootPath && vscode.workspace.rootPath.length > 0) {
-	// 	execSync(`rm -f ${compileCommandsPathInWorkspace}`);
-	// }
-	// messageSender('Step[10/9]', `Copy ${compileCommandsPath} to ${vscode.workspace.rootPath}/compile_commands.json`)
-
-	// // Step[11/9]  Copy compile_commands.json to ${vscode.workspace.rootPath}/compile_commands.json
-	// console.log(`Copy ${compileCommandsPath} to ${vscode.workspace.rootPath}/compile_commands.json`);
-	// execSync(`cp ${compileCommandsPath} ${vscode.workspace.rootPath}`);
-	// messageSender('Step[11/9]', `Copy ${compileCommandsPath} to ${vscode.workspace.rootPath}/compile_commands.json`)
 	return { ret: RET_CODE_SUCCESS, msg: 'You can use press <b style="color:yellow">F5</b> to debug!!' };
 }
 
@@ -201,9 +215,8 @@ class DebuggerViewProvider implements vscode.WebviewViewProvider {
 						this.sendStepMessage(REC_CODE_LACK_OF_PACKAGE_PARAMETER, 'Fail', 'Plasese enter the package name of the application');
 						return;
 					}
-
-					const ret = startGenrateLaunchJson(this._cxxSourceCodePath!, this._soPath!, this._packageName!, (step: string, log: string) =>
-						this.sendStepMessage(RET_CODE_INPROGRESS, step, log));
+					const ret = startGenrateLaunchJson(this._cxxSourceCodePath!, this._soPath!, this._packageName!, (code: number, step: string, log: string) =>
+						this.sendStepMessage(code, step, log));
 
 					if (ret) {
 						if (ret.ret == RET_CODE_SUCCESS) {
